@@ -26,8 +26,8 @@
       "src/controllers/*.ts",
       "src/routes/commentRoutes.ts",
       "src/validations/commentValidation.ts",
-      "src/models/userModel.ts",
-      "src/validations/blogValidation.ts"
+     
+      "src/validations/*.ts"
       
       
     ],
