@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import MessageModel, { IMessage } from './../models/messageModal';
+import sendEmail from '../middleware/emailSend';
 
-export const addMessage = (req: Request, res: Response): void => {
+export const addMessage = async(req: Request, res: Response): Promise<void> => {
   const { firstname, lastname, email, phone, message } = req.body;
   const newMessage: IMessage = new MessageModel({
     firstname,
@@ -12,7 +13,10 @@ export const addMessage = (req: Request, res: Response): void => {
   });
   newMessage
     .save()
-    .then((data: IMessage) => {
+    .then(async(data: IMessage) => {
+      await sendEmail("my brand message",` <div>message:<br>from: ${firstname} ${lastname} <br>message: ${message} <br>email: ${email} <br>phone: ${phone}</div>`)
+        
+      
       res.status(201).json({ message: 'Message has been sent', data });
     })
     .catch((err: Error) => {
