@@ -2,6 +2,7 @@ import request from 'supertest';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import { expect } from 'chai';
+import User from '../models/userModel'; 
 chai.use(chaiHttp);
 // import User from '../models/userModel';
 // import mongoose from 'mongoose';
@@ -27,6 +28,7 @@ describe('Auth endpoints', () => {
       confirmPassword: 'password123',
       role: 'admin',
     });
+    
     adminToken = res.body.token;
     const response = await request(app)
       .get('/api/users')
@@ -35,4 +37,20 @@ describe('Auth endpoints', () => {
     expect(response.body.status).to.equal('success');
     process.exit(0);
   });
+ it('should not hash the password field if it is not modified', async () => {
+    const userData = {
+      name: 'Test User',
+      email: 'test@example.com',
+      password: 'password123',
+      confirmPassword: 'password123',
+    };
+
+    const user = new User(userData);
+    await user.save(); // Save the user without modifying the password field
+
+    expect(user.password).to.equal(userData.password); // The password should remain unchanged
+  });
 });
+
+
+

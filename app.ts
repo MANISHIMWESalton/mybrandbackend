@@ -55,10 +55,11 @@ app.use((req:Request, res:Response,next:NextFunction) => {
     console.log(req.cookies);
     next()
 })
+app.use("/api/messages", messageRouter);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(Document, { customCss }));
 app.use("/api/users", userRouter);
 app.use("/api/blog", BlogRouter);
-app.use("/api/messages", messageRouter);
+
 app.post(
   "/api/:id/comment",
   validateComments,

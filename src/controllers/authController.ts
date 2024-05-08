@@ -18,6 +18,7 @@ exports.signUp = async (req: Request, res: Response): Promise<void> => {
       confirmPassword: req.body.confirmPassword,
       role: req.body.role,
     });
+    newUser.createResetPasswordToken()
     const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET || '', {
       expiresIn: process.env.JWT_EXPIRESIN,
     });
