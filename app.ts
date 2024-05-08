@@ -55,10 +55,16 @@ app.use((req:Request, res:Response,next:NextFunction) => {
     console.log(req.cookies);
     next()
 })
+app.get('/',(req,res)=>{
+    res.status(200).json({
+        message: "Welcome to the API"
+    })
+})
 app.use("/api/messages", messageRouter);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(Document, { customCss }));
 app.use("/api/users", userRouter);
 app.use("/api/blog", BlogRouter);
+
 
 app.post(
   "/api/:id/comment",
