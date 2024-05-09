@@ -14,9 +14,7 @@ export const addMessage = async(req: Request, res: Response): Promise<void> => {
   newMessage
     .save()
     .then(async(data: IMessage) => {
-      await sendEmail("my brand message",` <div>message:<br>from: ${firstname} ${lastname} <br>message: ${message} <br>email: ${email} <br>phone: ${phone}</div>`)
-        
-      
+      await sendEmail("my brand message",` <div>message:<br>from: ${data.firstname} ${data.lastname} <br>message: ${data.message} <br>email: ${data.email} <br>phone: ${data.phone}</div>`)
       res.status(201).json({ message: 'Message has been sent', data });
     })
     .catch((err: Error) => {

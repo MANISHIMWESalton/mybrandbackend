@@ -16,10 +16,14 @@ const sendEmail = async (subject: string, htmlMessage: string, emailTo: string =
         subject: subject,
         html: htmlMessage,
     };
-
     try {
-        await transporter.sendMail(mailOptions);
-        console.log('-----Email sent successfully-----');
+        await transporter.sendMail(mailOptions,(error,info)=>{
+            if(error){
+                console.error('Error sending email:', error);
+            }else{
+                console.log('Email sent:'+ info.response);
+            }
+        });
     } catch (error) {
         // console.error('Error sending email:', error);
     }
