@@ -11,6 +11,14 @@ export interface AuthenticatedRequest extends Request {
 
 exports.signUp = async (req: Request, res: Response): Promise<void> => {
   try {
+    const user = await User.findOne({ email: req.body.email });
+    if(user){
+      res.status(400).json({
+        status: 'fail',
+        message: 'User already exists',
+      });
+      return;
+    }
     const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
