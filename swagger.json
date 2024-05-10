@@ -17,6 +17,10 @@
     {
       "url": "https://mybrandbackend-93l8.onrender.com",
       "description": "Local Development Server for Swagger"
+    },
+    {
+      "url": "http://localhost:9097",
+      "description": "Local Development Server for Swagger"
     }
   ],
   "tags": [
@@ -31,19 +35,10 @@
     {
       "name": "messages",
       "description": "Handle user messages, including creation, retrieval, and deletion."
-    },
-    {
-      "name": "Comments",
-      "description": "Manage comments on blog posts, including addition and retrieval."
-    },
-    {
-      "name": "Likes",
-      "description": "Handle likes on blog posts."
-    },
-    {
-      "name": "Users",
-      "description": "User-related operations, such as retrieving all users, deleting users, and accessing user profiles."
     }
+    
+    
+    
   ],
   "components": {
     "securitySchemes": {
@@ -75,11 +70,11 @@
   "basePath": "/api",
   "schemes": ["http"],
   "paths": {
-   
+    
     "/api/users/login": {
       "post": {
         "summary": "Admin Login",
-        "tags": ["Authentication"],
+        "tags": ["Admin"],
         "security": [],
         "requestBody": {
           "content": {
@@ -89,11 +84,11 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "manishimwejosephs@gmail.com"
+                    "example": "adminn@gmail.com"
                   },
                   "password": {
                     "type": "string",
-                    "example": "walmond@123"
+                    "example": "admin"
                   }
                 },
                 "required": ["email", "password"]
@@ -140,116 +135,7 @@
         }
       }
     },
-    "/api/users": {
-      "get": {
-        "summary": "Get all users for the admin panel",
-        "tags": ["Authentication"],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized request"
-          }
-        }
-      }
-    },
-    "/api/users/{id}": {
-      "delete": {
-        "summary": "Delete a certain user by Admin",
-        "tags": ["Authentication"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "User ID",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized request"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      },
-      "get": {
-        "summary": "Get user details by ID",
-        "tags": ["Authentication"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "User ID",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized request"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update a User",
-        "tags": ["Authentication"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "User ID",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": { "type": "string" },
-                  "password": { "type": "string" },
-                  "confirmPassword": { "type": "string" },
-                  "email": { "type": "string", "format": "email" }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "400": {
-      "description": "Bad Request",
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "properties": {
-              "status": { "type": "string" },
-              "message": { "type": "string" }
-            }
-          }
-        }
-      }
-    },
+    
     "/api/blog": {
       "post": {
         "summary": "Create a blog with valid details",
